@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<!--------------------------------------------->
+<title> lacmo's calender </title>
+<meta name="author" content="lacmo" />
+<meta name="keywords" content="lacmo's calender" />
+<meta name="description" content="calender by lacmo base on jQuery" />
+<!--------------------------------------------->
+<link href="" rel="stylesheet" type="text/css"  />
+<style type="text/css">
+@import url(reset.css);
+/* 日历相关样式 start */
+#calenderBox{width:280px; height:300px; padding:10px; background:#666; }
+#calenderBox .calenderTop{position:relative; height:50px;}
+#calenderBox .monthShow{display:block; width:160px; height:50px; overflow:hidden; margin:0 auto; font:bold 22px/50px "microsoft yahei"; color:#fff; text-align:center;}
+#calenderBox .monthPrev,
+#calenderBox .monthNext,
+#calenderBox .yearPrev,
+#calenderBox .yearNext{position:absolute; top:15px; display:block; width:20px; height:21px; font:bold 20px/21px arial; text-decoration:none; color:#fff;}
+#calenderBox .monthPrev{left:55px;}
+#calenderBox .monthNext{right:55px; text-align:right;}
+#calenderBox .yearPrev{left:20px; color:#aaa;}
+#calenderBox .yearNext{right:20px; text-align:right; color:#aaa;}
+
+#calenderBox .dateBox{width:260px; margin:5px auto;}
+#calenderBox .dateBox span{display:inline-block; width:33px; height:29px; font:normal 14px/29px arial; border:1px solid #888; margin:1px; color:#fff; text-align:center; cursor:pointer;}
+#calenderBox .dateTitle span{width:35px; border:none; font-weight:bold;}
+#calenderBox .dateCont span.noCont{width:35px; height:31px; border:none; cursor:default;}
+#calenderBox .dateBox span.nowDate{background:#06c; color:#fff;}
+#calenderBox .dateBox span.dateHover{background:#fff; color:#666;}
+#calenderBox .dateBox span.dateCurr{background:#eee; color:#06c;}
+#calenderBox .dateBox span.dateActive{background:#ff0; color:#06c;}
+
+/* 日历相关样式 end */
+
+
+.calenderBox{float:left; margin-right:10px;}
+#messageBox{padding:10px;}
+</style>
+
+</head>
+
+<body>
+<!-- 日历开始 -->
+<div id="calenderBox" class="calenderBox"></div>
+<!-- 日历结束 -->
+
+<!-- 消息盒子 -->
+<div id="messageBox"></div>
+
+
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="calender.js"></script>
+<script type="text/javascript">
+	$(function($){
+		function showDate(date){
+			//date形如：20120901
+			var dateStr = arguments[0];
+			var ev = arguments[1];
+			var year = parseInt(dateStr.slice(0,4), 10), month = parseInt(dateStr.slice(4,6), 10), day = parseInt(dateStr.slice(-2), 10);
+			var html = year + '年' + month + '月' + day + '日';
+			if ($(ev.target).hasClass('dateActive')){
+				console.log($(ev.target).data);
+				html += '&nbsp;&nbsp;' + $(ev.target).data('description') ;
+			}
+			$('#messageBox').html(html);
+		}
+		//初始化日历
+		var myCalender = Calender('2012,12,5');
+		myCalender.init({
+			boxId: 'calenderBox',
+			clickFunction: showDate,
+			// 设置特殊日期
+			specialDate:[{"date": "2012,9,10", "description": "教师节"}, {"date": "2012,10,18", "description": "我自己的一个特殊日子"}, {"date": "2012,12,10", "description": "有活动"}, {"date": "2012,12,25", "description": "圣诞节"}],
+
+		});
+
+	})
+
+</script>
+
+</body>
+</html>
